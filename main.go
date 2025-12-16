@@ -6,6 +6,7 @@ import (
 	"nuru-lsp/completions"
 	"nuru-lsp/data"
 	"nuru-lsp/hover"
+	"nuru-lsp/definition"
 	"nuru-lsp/server"
 	"nuru-lsp/setup"
 	"os"
@@ -32,6 +33,8 @@ func main() {
 	})
 
 	server.Server.OnHover(hover.HoverFunc)
+
+	server.Server.OnDefinition(definition.DefinitionFunc)
 
 	server.Server.OnDidSaveTextDocument(func(ctx context.Context, req *defines.DidSaveTextDocumentParams) (err error) {
 		return nil
