@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"nuru-lsp/completions"
 	"nuru-lsp/data"
+	"nuru-lsp/hover"
 	"nuru-lsp/server"
 	"nuru-lsp/setup"
 	"os"
@@ -30,16 +31,7 @@ func main() {
 		return nil
 	})
 
-	server.Server.OnHover(func(ctx context.Context,
-		req *defines.HoverParams) (*defines.Hover, error) {
-		logs.Println("Hover:", req)
-		return &defines.Hover{
-			Contents: defines.MarkupContent{
-				Kind:  defines.MarkupKindPlainText,
-				Value: "OnHover Not implemented yet",
-			},
-		}, nil
-	})
+	server.Server.OnHover(hover.HoverFunc)
 
 	server.Server.OnDidSaveTextDocument(func(ctx context.Context, req *defines.DidSaveTextDocumentParams) (err error) {
 		return nil
